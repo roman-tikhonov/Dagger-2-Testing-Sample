@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Dagger2 Android Sample</string>
+    <string name="hello_world">Hello world</string>
+</resources>
