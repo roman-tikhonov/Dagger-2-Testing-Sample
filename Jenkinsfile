@@ -6,7 +6,17 @@ pipeline {
         sh './gradlew clean compile'
       }
     }
-    stage('unittest') {
+    stage('Lint') {
+      steps {
+        sh "./gradlew lint"
+      }
+      post {
+        always {
+          androidLint pattern: '**/lint-results-*.xml'
+        }
+      }
+    }
+    stage('tests') {
       steps {
         parallel(
           "unittest": {
@@ -18,6 +28,12 @@ pipeline {
           }
         )
       }
+
+          post {
+                always {
+                    junit '**/build/test-results/*/*.xml'
+                }
+            }
     }
     stage('deploy') {
       steps {
