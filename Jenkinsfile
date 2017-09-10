@@ -20,18 +20,19 @@ pipeline {
         )
       }
     }
-    stage('deploy') {
+    stage('assemble') {
       steps {
-        parallel(
-          "deploy": {
-            sh 'echo \'not yet implemented\''
-            
-          },
-          "package": {
-            sh './gradlew :app:assembleRelease'
-            
-          }
-        )
+        sh './gradlew :app:assembleRelease'
+      }
+    }
+    stage('publish') {
+      steps {
+        sh 'echo "TODO upload to artifactory / fabric"'
+      }
+    }
+    stage('notify') {
+      steps {
+        sh 'echo "TODO notify chat / email"'
       }
     }
   }
