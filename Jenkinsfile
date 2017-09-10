@@ -1,5 +1,5 @@
 pipeline {
-  agent any  
+  agent any
   stages {
     stage('build') {
       steps {
@@ -15,13 +15,23 @@ pipeline {
           },
           "instrumentationTest": {
             sh 'echo \'not yet implemented\''
+            
           }
         )
       }
     }
     stage('deploy') {
       steps {
-        sh 'echo \'not yet implemented\''
+        parallel(
+          "deploy": {
+            sh 'echo \'not yet implemented\''
+            
+          },
+          "package": {
+            sh './gradlew :app:assembleRelease'
+            
+          }
+        )
       }
     }
   }
